@@ -2,9 +2,10 @@ from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient,AsyncIOMotorDatabase
 from dotenv import load_dotenv
 from app.db.mongodb import db
-
+from app.routes import rides,bookings
 app=FastAPI()
-
+app.include_router(rides.router)
+app.include_router(bookings.router)
 @app.get('/test-db')
 async def test_db():
     collections=await db.list_collection_names()
